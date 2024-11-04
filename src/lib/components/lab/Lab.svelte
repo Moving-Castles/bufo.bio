@@ -7,6 +7,7 @@
   import { FROG_COLLECTION_ID, SUBSTANCE_COLLECTION_ID } from "$lib/constants"
   import type { FrogPodType } from "$lib/types"
   import FrogPod from "$lib/components/lab/FrogPod.svelte"
+  import { createSubstanceHash } from "$lib/modules/syn"
   // import { stringifyObject } from "$lib/modules/utils"
   // import { POD } from "@pcd/pod"
   import type { PODEntries } from "@pcd/pod"
@@ -32,16 +33,20 @@
   }
 
   async function synthesize() {
-    if (!$zupassClient) {
+    if (!$zupassClient || !frogOne || !frogTwo) {
       return
     }
 
     console.log("Synthesizing", frogOne, frogTwo)
 
+    const substanceHash = await createSubstanceHash(frogOne, frogTwo)
+
+    console.log("substanceHash", substanceHash)
+
     const podData: PODEntries = {
       pod_type: { type: "string", value: "substancePod" },
       name: { type: "string", value: "Test substance" },
-      seed: { type: "string", value: "0x12345" },
+      seed: { type: "string", value: substanceHash },
       timestampSigned: { type: "int", value: BigInt(Date.now()) },
     }
 
@@ -70,7 +75,7 @@
 
     console.log("compPod", compPod)
 
-    await $zupassClient.pod.collection(SUBSTANCE_COLLECTION_ID).insert(compPod)
+    // await $zupassClient.pod.collection(SUBSTANCE_COLLECTION_ID).insert(compPod)
 
     // const url = "/api/synthesize"
 
