@@ -8,25 +8,33 @@
 
   onMount(async () => {
     publicKey = await zupassClient.identity.getPublicKey()
+    console.log(await zupassClient.identity.getSemaphoreV3Commitment())
+    console.log(await zupassClient.identity.getSemaphoreV4Commitment())
   })
 </script>
 
-<div class="avatar">{publicKey}</div>
+<div class="avatar">
+  <div>
+    <div>Welcome,</div>
+    <div>{publicKey}</div>
+  </div>
+</div>
 
 <style lang="scss">
   .avatar {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    width: 100%;
     background-color: #00ff00;
     color: var(--background);
-    width: 100px;
-    height: 100px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     word-break: break-all;
     font-size: 10px;
+
+    .strong {
+      font-weight: bold;
+    }
   }
 </style>

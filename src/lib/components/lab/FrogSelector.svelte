@@ -5,6 +5,7 @@
   const dispatch = createEventDispatcher()
 
   export let userFrogs: FrogPodType[] = []
+  export let index: number
 
   let open = false
 
@@ -24,5 +25,17 @@
     {/each}
   </div>
 {:else}
-  <button type="button" on:click={() => (open = true)}>Select frog</button>
+  <button type="button" on:click={() => (open = true)}
+    >Select frog #{index}</button
+  >
 {/if}
+
+<style lang="scss">
+  .selector {
+    width: 100%;
+  }
+
+  button {
+    margin-bottom: 10px;
+  }
+</style>

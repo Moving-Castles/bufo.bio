@@ -4,20 +4,26 @@
   import { connectToZupass } from "$lib/modules/zupass"
   import { goto } from "$app/navigation"
   import { zupassClient } from "$lib/stores"
+  import Dots from "./Dots.svelte"
 
   let busy = false
 
   async function connect() {
     busy = true
     const z = await connectToZupass()
-    console.log("in connect", z)
     zupassClient.set(z)
     uiState.set(State.Lab)
     goto("/lab")
   }
 </script>
 
-<button on:click={connect} class:busy>Connect to Zupass</button>
+<button on:click={connect} class:busy>
+  {#if busy}
+    <Dots />
+  {:else}
+    Connect to Zupass
+  {/if}
+</button>
 
 <style lang="scss">
   .busy {

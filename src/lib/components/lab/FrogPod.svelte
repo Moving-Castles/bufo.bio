@@ -17,8 +17,21 @@
 
 <style lang="scss">
   .pod {
+    padding: 20px;
+    background: darkgrey;
+    margin-bottom: 1em;
+    color: var(--background);
+    cursor: pointer;
+    border-radius: 20px;
+    user-select: none;
+    width: 100%;
+
     img {
       width: 200px;
+    }
+
+    &:hover {
+      background: lightblue;
     }
   }
 </style>

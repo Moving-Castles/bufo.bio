@@ -1,17 +1,26 @@
 <script lang="ts">
   import { zupassClient } from "$lib/stores"
   import Avatar from "$lib/components/Avatar.svelte"
+  import Disclaimer from "$lib/components/Disclaimer.svelte"
 </script>
 
 <!-- Container for zupass connector -->
 <div id="parcnet-app-connector"></div>
 
-{#if $zupassClient}
-  <Avatar zupassClient={$zupassClient} />
-{/if}
-
 <main>
-  <slot />
+  <div class="container">
+    {#if $zupassClient}
+      <Avatar zupassClient={$zupassClient} />
+    {/if}
+    <div class="header">shulgin.engineering</div>
+    <div class="slot-container">
+      <slot />
+    </div>
+
+    {#if $zupassClient}
+      <Disclaimer />
+    {/if}
+  </div>
 </main>
 
 <style lang="scss">
@@ -19,8 +28,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
     text-align: center;
-    padding-top: 5em;
+    padding-top: 3em;
+    width: 100dvw;
+
+    .container {
+      width: 50ch;
+      max-width: 90%;
+      margin-bottom: 200px;
+
+      .header {
+        background: var(--foreground);
+        color: var(--background);
+        height: 40px;
+        font-weight: bold;
+        width: 100%;
+        line-height: 40px;
+      }
+
+      .slot-container {
+        min-height: 100vh;
+      }
+    }
   }
 </style>
