@@ -12,7 +12,9 @@
     {#if $zupassClient}
       <Avatar zupassClient={$zupassClient} />
     {/if}
-    <div class="header">shulgin.engineering</div>
+    <div class="header">
+      <div class="text-content">shulgin.engineering</div>
+    </div>
     <div class="slot-container">
       <slot />
     </div>
@@ -40,10 +42,17 @@
       .header {
         background: var(--foreground);
         color: var(--background);
-        height: 40px;
+        font-family: var(--font-stack-alt);
+        font-size: 32px;
+        height: 80px;
         font-weight: bold;
         width: 100%;
-        line-height: 40px;
+        line-height: 80px;
+
+        .text-content {
+          position: relative;
+          top: 2px;
+        }
       }
 
       .slot-container {
