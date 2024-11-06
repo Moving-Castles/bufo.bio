@@ -43,7 +43,7 @@
         background: var(--foreground);
         color: var(--background);
         font-family: var(--font-stack-alt);
-        font-size: 32px;
+        font-size: 42px;
         height: 80px;
         font-weight: bold;
         width: 100%;

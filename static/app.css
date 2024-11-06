@@ -16,8 +16,8 @@
 
 @font-face {
   font-family: 'deadly';
-  src: url('deadly_typeface-webfont.woff2') format('woff2'),
-       url('deadly_typeface-webfont.woff') format('woff');
+  src: url('/fonts/deadly_typeface-webfont.woff2') format('woff2'),
+       url('/fonts/deadly_typeface-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
