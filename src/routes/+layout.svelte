@@ -48,6 +48,7 @@
         font-weight: bold;
         width: 100%;
         line-height: 80px;
+        animation: backgroundCycle 6s infinite;
 
         .text-content {
           position: relative;
@@ -58,6 +59,24 @@
       .slot-container {
         min-height: 100vh;
       }
+    }
+  }
+
+  @keyframes backgroundCycle {
+    0% {
+      background-color: #ff7b00; /* Red */
+    }
+    25% {
+      background-color: #59fd59; /* Green */
+    }
+    50% {
+      background-color: #d23df3; /* Blue */
+    }
+    75% {
+      background-color: #00ffee; /* Yellow */
+    }
+    100% {
+      background-color: #ff7b00; /* Red (loop back to the start) */
     }
   }
 </style>
