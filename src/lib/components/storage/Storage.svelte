@@ -3,7 +3,7 @@
   import { zupassClient } from "$lib/stores"
   import { goto } from "$app/navigation"
   import { SUBSTANCE_COLLECTION_ID } from "$lib/constants"
-  import SubstancePod from "./SubstancePod.svelte"
+  import SubstancePod from "../pods/SubstancePod.svelte"
   import { SUBSTANCE_QUERY } from "$lib/modules/zupass"
 
   import NavBar from "$lib/components/navigation/NavBar.svelte"
@@ -25,10 +25,9 @@
 <NavBar page="storage" />
 
 <div>
+  <div class="header">substances in storage: {substances.length ?? 0}</div>
+
   {#each substances.reverse() as substance}
     <SubstancePod {substance} />
   {/each}
 </div>
-
-<style lang="scss">
-</style>

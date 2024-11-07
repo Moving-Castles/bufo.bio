@@ -3,8 +3,8 @@
 </script>
 
 <div class="navbar">
-  <a href="/lab" class:active={page === "lab"}>Lab</a>
-  <a href="/storage" class:active={page === "storage"}>Storage</a>
+  <a href="/lab" class:active={page === "lab"}>lab</a>
+  <a href="/storage" class:active={page === "storage"}>storage</a>
 </div>
 
 <style lang="scss">
@@ -16,17 +16,13 @@
     a {
       display: block;
       width: 50%;
-      height: 80px;
-      line-height: 80px;
+      height: 40px;
+      line-height: 40px;
       text-align: center;
       text-decoration: none;
       font-weight: bold;
       color: var(--background);
       background: lightgray;
-
-      &:first-child {
-        border-right: 1px solid white;
-      }
 
       &.active {
         background: grey;

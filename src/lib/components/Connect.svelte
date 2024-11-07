@@ -17,11 +17,11 @@
   }
 </script>
 
-<button on:click={connect} class:busy>
+<button class="big-button" on:click={connect} class:busy>
   {#if busy}
     <Dots />
   {:else}
-    Connect to Zupass
+    connect to Zupass
   {/if}
 </button>
 
