@@ -36,15 +36,12 @@
     align-items: center;
     padding-top: 20px;
     overflow-y: scroll;
+    z-index: var(--z-overlay);
 
     .inner {
       width: 50ch;
       max-width: calc(100% - 40px);
       margin-bottom: 20px;
-
-      .header {
-        height: 40px;
-      }
     }
   }
 </style>

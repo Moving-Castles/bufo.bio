@@ -114,6 +114,8 @@
       </div>
     </div>
   {:else if userFrogs.length > 0}
+    <div class="header">select two frogs to synthesize substance</div>
+
     <!-- FROG ONE SELECTOR -->
     {#if $frogOne === null}
       <FrogSelector
@@ -152,10 +154,6 @@
 
 <style lang="scss">
   .new-substance {
-    .header {
-      margin-bottom: 20px;
-    }
-
     .actions {
       width: 100%;
       display: flex;

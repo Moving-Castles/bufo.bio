@@ -25,10 +25,9 @@
 <NavBar page="storage" />
 
 <div>
+  <div class="header">substances in storage: {substances.length ?? 0}</div>
+
   {#each substances.reverse() as substance}
     <SubstancePod {substance} />
   {/each}
 </div>
-
-<style lang="scss">
-</style>

@@ -16,17 +16,13 @@
     a {
       display: block;
       width: 50%;
-      height: 80px;
-      line-height: 80px;
+      height: 40px;
+      line-height: 40px;
       text-align: center;
       text-decoration: none;
       font-weight: bold;
       color: var(--background);
       background: lightgray;
-
-      &:first-child {
-        border-right: 1px solid white;
-      }
 
       &.active {
         background: grey;

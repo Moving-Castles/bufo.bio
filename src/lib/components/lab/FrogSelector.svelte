@@ -22,7 +22,7 @@
   </div>
 {:else}
   <button class="big-button" type="button" on:click={() => (open = true)}>
-    select frog #{index}
+    frog #{index}
   </button>
 {/if}
 

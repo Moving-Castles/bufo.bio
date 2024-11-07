@@ -12,13 +12,12 @@
     {#if $zupassClient}
       <Avatar zupassClient={$zupassClient} />
     {/if}
-    <div class="header">
+    <div class="logo">
       <div class="text-content">shulgin.engineering</div>
     </div>
     <div class="slot-container">
       <slot />
     </div>
-
     <!-- {#if $zupassClient}
       <Disclaimer />
     {/if} -->
@@ -39,7 +38,7 @@
       max-width: calc(100% - 40px);
       margin-bottom: 20px;
 
-      .header {
+      .logo {
         background: var(--foreground);
         color: var(--background);
         font-family: var(--font-stack-alt);
