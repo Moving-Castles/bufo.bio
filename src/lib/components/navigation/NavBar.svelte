@@ -3,8 +3,8 @@
 </script>
 
 <div class="navbar">
-  <a href="/lab" class:active={page === "lab"}>Lab</a>
-  <a href="/storage" class:active={page === "storage"}>Storage</a>
+  <a href="/lab" class:active={page === "lab"}>lab</a>
+  <a href="/storage" class:active={page === "storage"}>storage</a>
 </div>
 
 <style lang="scss">

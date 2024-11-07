@@ -89,7 +89,7 @@
   .disclaimer {
     width: 100%;
     color: red;
-    font-size: 10px;
+    font-size: var(--font-size-small);
     text-align: justify;
     background: red;
     color: black;

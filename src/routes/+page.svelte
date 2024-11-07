@@ -13,8 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
-    border-bottom: 1px solid var(--foreground);
-    margin-bottom: 20px;
+    height: 40px;
   }
 </style>

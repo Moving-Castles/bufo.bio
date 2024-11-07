@@ -15,7 +15,7 @@
 
 <div class="avatar">
   <div>
-    <div>Welcome,</div>
+    <div>welcome,</div>
     <div>{publicKey}</div>
   </div>
 </div>
@@ -23,7 +23,7 @@
 <style lang="scss">
   .avatar {
     width: 100%;
-    background-color: #00ff00;
+    background-color: var(--foreground);
     color: var(--background);
     height: 40px;
     display: flex;
@@ -31,7 +31,7 @@
     align-items: center;
     overflow: hidden;
     word-break: break-all;
-    font-size: 10px;
+    font-size: var(--font-size-small);
 
     .strong {
       font-weight: bold;

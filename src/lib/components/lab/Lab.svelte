@@ -13,18 +13,15 @@
 
   import NavBar from "$lib/components/navigation/NavBar.svelte"
   import FrogSelector from "$lib/components/lab/FrogSelector.svelte"
-  import FrogPod from "$lib/components/lab/FrogPod.svelte"
-  import SubstancePod from "$lib/components/storage/SubstancePod.svelte"
+  import FrogPod from "$lib/components/pods/FrogPod.svelte"
+  import SubstancePod from "$lib/components/pods/SubstancePod.svelte"
 
-  let newSubstance: any = null
+  import { frogOne, frogTwo, newSubstance } from "$lib/stores"
 
   let userFrogs: FrogPodType[] = []
 
-  let frogOne: FrogPodType | null = null
-  let frogTwo: FrogPodType | null = null
-
   async function synthesize() {
-    if (!$zupassClient || !frogOne || !frogTwo) {
+    if (!$zupassClient || !$frogOne || !$frogTwo) {
       return
     }
 
@@ -33,8 +30,8 @@
     )
 
     const data = {
-      frogOne: convertBigIntsToNumbers(frogOne),
-      frogTwo: convertBigIntsToNumbers(frogTwo),
+      frogOne: convertBigIntsToNumbers($frogOne),
+      frogTwo: convertBigIntsToNumbers($frogTwo),
       userSemaphoreCommitment: userSemaphoreCommitment,
     }
 
@@ -71,16 +68,25 @@
       signerPublicKey: responseData.signerPublicKey,
     }
 
-    newSubstance = compPod
+    newSubstance.set(compPod)
+    frogOne.set(null)
+    frogTwo.set(null)
   }
 
   async function save() {
-    if (!$zupassClient) {
+    if (!$zupassClient || !$newSubstance) {
       return
     }
     await $zupassClient.pod
       .collection(SUBSTANCE_COLLECTION_ID)
-      .insert(newSubstance)
+      .insert($newSubstance)
+
+    newSubstance.set(null)
+    goto("/storage")
+  }
+
+  async function discard() {
+    newSubstance.set(null)
   }
 
   onMount(async () => {
@@ -98,45 +104,75 @@
 <NavBar page="lab" />
 
 <div class="list">
-  {#if newSubstance}
-    <h2>New substance</h2>
-    <SubstancePod substance={newSubstance} />
-    <button type="button" on:click={save}>Save substance</button>
+  {#if $newSubstance}
+    <div class="new-substance">
+      <div class="header">new substance</div>
+      <SubstancePod substance={$newSubstance} />
+      <div class="actions">
+        <button on:click={save}>save</button>
+        <button on:click={discard}>discard</button>
+      </div>
+    </div>
   {:else if userFrogs.length > 0}
     <!-- FROG ONE SELECTOR -->
-    {#if frogOne === null}
+    {#if $frogOne === null}
       <FrogSelector
         index={1}
         {userFrogs}
         on:select={e => {
-          frogOne = e.detail
+          frogOne.set(e.detail)
         }}
       />
     {:else}
-      <FrogPod frog={frogOne} />
+      <FrogPod frog={$frogOne} interactive={false} />
     {/if}
 
-    <hr />
-
     <!-- FROG TWO SELECTOR -->
-    {#if frogTwo === null}
+    {#if $frogTwo === null}
       <FrogSelector
         index={2}
         {userFrogs}
         on:select={e => {
-          frogTwo = e.detail
+          frogTwo.set(e.detail)
         }}
       />
     {:else}
-      <FrogPod frog={frogTwo} />
+      <FrogPod frog={$frogTwo} interactive={false} />
     {/if}
 
-    <hr />
-
-    {#if frogOne && frogTwo}
-      <button type="button" on:click={synthesize}>Synthesize substance</button>
+    {#if $frogOne && $frogTwo}
+      <button class="big-button" on:click={synthesize}>
+        synthesize substance
+      </button>
     {/if}
   {:else}
-    No frogs found
+    no frogs found
   {/if}
 </div>
+
+<style lang="scss">
+  .new-substance {
+    .header {
+      margin-bottom: 20px;
+    }
+
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        width: 50%;
+        height: 40px;
+
+        &:first-child {
+          margin-right: 5px;
+        }
+
+        &:last-child {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+</style>

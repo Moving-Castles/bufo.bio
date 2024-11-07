@@ -19,9 +19,9 @@
       <slot />
     </div>
 
-    {#if $zupassClient}
+    <!-- {#if $zupassClient}
       <Disclaimer />
-    {/if}
+    {/if} -->
   </div>
 </main>
 
@@ -31,13 +31,13 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-top: 3em;
+    padding-top: 20px;
     width: 100dvw;
 
     .container {
       width: 50ch;
-      max-width: 90%;
-      margin-bottom: 200px;
+      max-width: calc(100% - 40px);
+      margin-bottom: 20px;
 
       .header {
         background: var(--foreground);
@@ -48,7 +48,11 @@
         font-weight: bold;
         width: 100%;
         line-height: 80px;
-        animation: backgroundCycle 6s infinite;
+        // animation: backgroundCycle 6s infinite;
+        // background: rgb(146, 255, 37);
+        background: radial-gradient(circle, #ff0000, #00ff2a, #e600ff);
+        animation: backgroundCycle 24s infinite;
+        filter: hue-rotate(0deg);
 
         .text-content {
           position: relative;
@@ -57,26 +61,65 @@
       }
 
       .slot-container {
-        min-height: 100vh;
+        // min-height: 100vh;
       }
     }
   }
 
   @keyframes backgroundCycle {
     0% {
-      background-color: #ff7b00; /* Red */
+      background: radial-gradient(circle, #ff0000, #00ff0d, #0004ff);
     }
-    25% {
-      background-color: #59fd59; /* Green */
+    33% {
+      background: radial-gradient(circle, #00ff0d, #0004ff, #ff0000);
     }
-    50% {
-      background-color: #d23df3; /* Blue */
-    }
-    75% {
-      background-color: #00ffee; /* Yellow */
+    66% {
+      background: radial-gradient(circle, #0004ff, #ff0000, #00ff0d);
     }
     100% {
-      background-color: #ff7b00; /* Red (loop back to the start) */
+      background: radial-gradient(circle, #ff0000, #00ff0d, #0004ff);
     }
   }
+
+  @keyframes backgroundCycle {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    50% {
+      filter: hue-rotate(360deg);
+    }
+    100% {
+      filter: hue-rotate(0deg);
+    }
+  }
+
+  // @keyframes pulseGradient {
+  //   0% {
+  //     background-size: 100%;
+  //   }
+  //   50% {
+  //     background-size: 120%;
+  //   }
+  //   100% {
+  //     background-size: 100%;
+  //   }
+  // }
+
+  // @keyframes backgroundCycle {
+  //   0% {
+  //     background-color: #ff7b00; /* Red */
+  //   }
+  //   25% {
+  //     background-color: #59fd59; /* Green */
+  //   }
+  //   50% {
+  //     background-color: #d23df3; /* Blue */
+  //   }
+  //   75% {
+  //     background-color: #00ffee; /* Yellow */
+  //   }
+  //   100% {
+  //     background-color: #ff7b00; /* Red (loop back to the start) */
+  //   }
+  // }
 </style>

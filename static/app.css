@@ -29,7 +29,8 @@
     --accent: #ff0000;
     --font-stack: "Berkeley Mono", "courier new", monospace;
     --font-stack-alt: "deadly", "courier new", monospace;
-    --font-size-base: 16px;
+    --font-size-base: 14px;
+    --font-size-small: 10px;
 }
 
 html {
@@ -61,10 +62,19 @@ html {
     background: var(--acccent);
   }
 
-  button {
+  .big-button {
     width: 100%;
     height: 80px;
     line-height: 80px;
+
+  }
+
+  button {
     font-family: var(--font-stack);
     cursor: pointer;
+    font-size: var(--font-size-base);
+  }
+
+  .dashed-button {
+    border: 3px dashed darkgrey;
   }
