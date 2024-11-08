@@ -27,6 +27,14 @@
         background: var(--color-light);
         font-weight: bold;
       }
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:active {
+        background: var(--foreground);
+      }
     }
   }
 </style>

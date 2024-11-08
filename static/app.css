@@ -20,7 +20,7 @@
        url('/fonts/deadly_typeface-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
+  font-display: block;
 }
 
 :root {
@@ -30,6 +30,8 @@
     --color-dark: rgb(169, 169, 169);
     --foreground: #ffffff;
     --accent: #00fff7;
+    --failure: #ff6464;
+    --success: #00ff7f;
     --font-stack: "Berkeley Mono", "courier new", monospace;
     --font-stack-alt: "deadly", "courier new", monospace;
     --font-size-base: 14px;
@@ -77,8 +79,9 @@ html {
     font-size: var(--font-size-base);
   }
 
-  button:hover {
-    opacity: 0.8;
+  button:hover,
+  button:active {
+    background: var(--foreground);
   }
 
   button.disabled {
@@ -91,10 +94,6 @@ html {
     height: 80px;
     line-height: 80px;
     background: var(--color-light);
-  }
-
-  .dashed-button {
-    border: 3px dashed var(--color-dark);
   }
 
   .header {

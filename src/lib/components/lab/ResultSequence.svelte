@@ -41,7 +41,7 @@
   async function typewriterEffect() {
     for (let i = 0; i < message.length; i++) {
       displayedMessage += message[i]
-      await new Promise(resolve => setTimeout(resolve, 5))
+      await new Promise(resolve => setTimeout(resolve, 3))
     }
     await new Promise(resolve => setTimeout(resolve, 500))
     displayedMessage += `<br/>${line}`

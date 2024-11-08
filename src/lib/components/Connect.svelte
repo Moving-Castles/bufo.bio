@@ -29,6 +29,6 @@
   .busy {
     cursor: wait;
     pointer-events: none;
-    opacity: 0.5;
+    background: var(--foreground);
   }
 </style>

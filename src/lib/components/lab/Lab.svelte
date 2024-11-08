@@ -276,13 +276,18 @@
   // }
 
   .discard {
-    // border: 2px solid rgb(255, 0, 0);
     font-weight: bold;
-    // color: var(--foreground);
+
+    &:hover {
+      background: var(--failure);
+    }
   }
 
   .save {
-    // border: 2px solid rgb(0, 255, 0);
     font-weight: bold;
+
+    &:hover {
+      background: var(--success);
+    }
   }
 </style>
