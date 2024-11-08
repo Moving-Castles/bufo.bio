@@ -36,7 +36,8 @@
       width: 200px;
       background: lightgrey;
       margin-bottom: 5px;
-      filter: grayscale(1);
+      border-radius: 10px;
+      // filter: grayscale(1);
     }
 
     .name {

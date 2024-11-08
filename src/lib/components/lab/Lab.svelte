@@ -8,7 +8,7 @@
     SUBSTANCE_COLLECTION_ID,
     SYNTHESIS_SERVER_URL,
   } from "$lib/constants"
-  import type { FrogPodType } from "$lib/types"
+  import type { FrogPodType, SubstancePodType } from "$lib/types"
   import { FROG_QUERY } from "$lib/modules/zupass"
   import { convertBigIntsToNumbers } from "$lib/modules/utils"
 
@@ -53,8 +53,12 @@
 
     const compPod = {
       entries: {
-        pod_type: { type: "string", value: "substancePod" },
+        pod_type: { type: "string", value: "shulgin.engineering.substance" },
         name: { type: "string", value: responseData.entries.name },
+        imageUrl: {
+          type: "string",
+          value: responseData.entries.imageUrl,
+        },
         seed: { type: "string", value: responseData.entries.seed },
         timestampSigned: {
           type: "int",

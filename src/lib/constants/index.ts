@@ -5,18 +5,17 @@ export const ZUPASS_CLIENT_URL = "https://staging.zupass.org"
 // export const SYNTHESIS_SERVER_URL = "http://localhost:4001"
 export const SYNTHESIS_SERVER_URL = "https://synthesis.mc-infra.com"
 
-
 export const FROG_COLLECTION_ID = "FrogCrypto (alpha)"
-export const SUBSTANCE_COLLECTION_ID = "MC_TEST_SUBSTANCE_2"
+export const SUBSTANCE_COLLECTION_ID = "shulgin.engineering substance"
 
 export const bufoZapp: Zapp = {
-    name: "BufoTest",
+    name: "shulgin.engineering",
     permissions: {
+      READ_PUBLIC_IDENTIFIERS: {},
       READ_POD: { collections: [FROG_COLLECTION_ID, SUBSTANCE_COLLECTION_ID] },
       INSERT_POD: { collections: [SUBSTANCE_COLLECTION_ID] },
-      READ_PUBLIC_IDENTIFIERS: {},
+      // DELETE_POD: { collections: [SUBSTANCE_COLLECTION_ID] },
     },
   }
 
   export const appConnectorElementId = "parcnet-app-connector"
-

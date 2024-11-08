@@ -21,10 +21,11 @@ export type FrogPodType = {
 
   export type SubstancePodType = {
     entries: {
+        pod_type: { type: 'string', value: "shulgin.engineering.substance" },
         name: { type: 'string', value: string },
+        imageUrl: { type: 'string', value: string },
         seed: { type: 'string', value: string },
         timestampSigned: { type: 'int', value: number }
-        pod_type: { type: 'string', value: "substancePod" },
         owner: { type: 'cryptographic', value: number }
     },
     signature: string,

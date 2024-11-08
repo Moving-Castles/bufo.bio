@@ -10,7 +10,7 @@ export const SUBSTANCE_QUERY = {
               isMemberOf: [
                   {
                       type: "string",
-                      value: "substancePod"
+                      value: "shulgin.engineering.substance"
                   }
               ]
           }
