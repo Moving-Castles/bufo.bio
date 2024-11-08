@@ -21,10 +21,10 @@
       text-align: center;
       text-decoration: none;
       color: var(--background);
-      background: gray;
+      background: var(--color-mid);
 
       &.active {
-        background: lightgray;
+        background: var(--color-light);
         font-weight: bold;
       }
     }

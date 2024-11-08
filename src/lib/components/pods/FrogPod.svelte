@@ -86,7 +86,7 @@
   .pod {
     padding-top: 15px;
     padding-bottom: 10px;
-    background: darkgrey;
+    background: var(--color-dark);
     margin-bottom: 20px;
     color: var(--background);
     user-select: none;
@@ -98,7 +98,7 @@
     cursor: pointer;
 
     &:hover {
-      background: lightgrey;
+      background: var(--color-light);
     }
 
     &:active {
@@ -108,7 +108,7 @@
     .image-container {
       width: 200px;
       height: 133px;
-      background: lightgrey;
+      background: var(--color-light);
       margin-bottom: 10px;
 
       img {

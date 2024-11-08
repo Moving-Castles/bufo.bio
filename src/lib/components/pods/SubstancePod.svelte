@@ -44,7 +44,7 @@
 <style lang="scss">
   .pod {
     display: block;
-    background: darkgrey;
+    background: var(--color-dark);
     margin-bottom: 20px;
     color: var(--background);
     user-select: none;
