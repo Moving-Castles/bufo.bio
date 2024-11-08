@@ -57,7 +57,6 @@
     color: var(--background);
     z-index: var(--z-top-ui);
     padding: 10px;
-    border-radius: 5px;
     font-weight: bold;
   }
 
@@ -69,6 +68,5 @@
     color: var(--background);
     z-index: var(--z-top-ui);
     padding: 10px;
-    border-radius: 5px;
   }
 </style>

@@ -42,9 +42,9 @@
       await new Promise(resolve => setTimeout(resolve, 5))
     }
     await new Promise(resolve => setTimeout(resolve, 500))
-    displayedMessage += "<br/> SYNTHESIS COMPLETED SUCESSFULLY"
+    displayedMessage += "<br/>SYNTHESIS COMPLETED SUCESSFULLY"
     await new Promise(resolve => setTimeout(resolve, 1000))
-    displayedMessage += `<br/> ${name} CREATED`
+    displayedMessage += `<br/><strong>${name} CREATED</strong>`
     await new Promise(resolve => setTimeout(resolve, 1500))
     dispatch("done", { finished: true })
   }

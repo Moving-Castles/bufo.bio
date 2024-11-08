@@ -4,21 +4,28 @@
   const dispatch = createEventDispatcher()
 
   export let frog: FrogPodType
-  export let interactive: boolean = true
+  export let small: boolean = false
+  export let index: number = 0
 
-  function select() {
-    dispatch("select", frog)
+  function handleClick() {
+    if (small) {
+      dispatch("clear", {})
+    } else {
+      dispatch("select", frog)
+    }
   }
 </script>
 
-<div role="presentation" class="pod" class:interactive on:click={select}>
-  <div class="name">{frog.entries.name.value}</div>
-  <img
-    width="200"
-    height="133"
-    src={frog.entries.imageUrl.value}
-    alt={frog.entries.name.value}
-  />
+<div role="presentation" class="pod" class:small on:click={handleClick}>
+  <!-- NAME -->
+  <div class="name">
+    <span class="frog-index">#{index}: </span>{frog.entries.name.value}
+  </div>
+  <!-- IMAGE -->
+  <div class="image-container">
+    <img src={frog.entries.imageUrl.value} alt={frog.entries.name.value} />
+  </div>
+  <!-- DETAILS -->
   <div class="details">
     <!-- BEAUTY -->
     <div class="row">
@@ -65,51 +72,88 @@
     background: darkgrey;
     margin-bottom: 1em;
     color: var(--background);
-    border-radius: 10px;
     user-select: none;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    img {
-      width: 200px;
+    cursor: pointer;
+
+    &:hover {
       background: lightgrey;
-      margin-bottom: 5px;
-      border-radius: 10px;
+    }
+
+    .image-container {
+      width: 200px;
+      height: 133px;
+      background: lightgrey;
+      margin-bottom: 10px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .name {
       margin-bottom: 10px;
       font-weight: bold;
-    }
 
-    &.interactive {
-      cursor: pointer;
-
-      &:hover {
-        background: lightgrey;
+      .frog-index {
+        display: none;
       }
     }
-  }
 
-  .details {
-    margin-right: auto;
-    margin-left: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: var(--font-size-small);
-    width: 70%;
-
-    .row {
+    .details {
+      margin-right: auto;
+      margin-left: auto;
       display: flex;
-      justify-content: space-between;
-      margin-right: 5px;
-      padding: 5px;
-      background: var(--foreground);
-      margin-bottom: 5px;
-      border-radius: 5px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: var(--font-size-small);
+      width: 70%;
 
-      .label {
-        font-weight: bold;
+      .row {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 5px;
+        padding: 5px;
+        background: var(--foreground);
+        margin-bottom: 5px;
+
+        .label {
+          font-weight: bold;
+        }
+      }
+    }
+
+    &.small {
+      height: 80px;
+      flex-direction: row;
+      padding-inline: 10px;
+
+      .name {
+        order: 2;
+        margin-left: 20px;
+
+        .frog-index {
+          display: inline-block;
+          font-weight: normal;
+          margin-right: 1ch;
+        }
+      }
+
+      .details {
+        display: none;
+      }
+
+      .image-container {
+        order: 1;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0;
       }
     }
   }

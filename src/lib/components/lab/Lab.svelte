@@ -129,11 +129,13 @@
 
 <div class="list">
   {#if result}
+    <!-- RESULT SEQUENCE -->
     <ResultSequence
       name={compPod?.entries?.name?.value ?? ""}
       on:done={resultSequenceDone}
     />
   {:else if $newSubstance}
+    <!-- NEW SUBSTANCE -->
     <div class="new-substance">
       <div class="header" in:fade={{ duration: 200 }}>** new substance **</div>
       <div in:fade={{ duration: 200, delay: 500 }}>
@@ -155,22 +157,6 @@
   {:else if userFrogs.length > 0}
     <div class="header">select two frogs to synthesize substance</div>
 
-    {#if $frogOne && $frogTwo}
-      <div class="header">
-        <button
-          class="big-button glow-button"
-          class:disabled={synthesizing}
-          on:click={synthesize}
-        >
-          {#if synthesizing}
-            <Dots />
-          {:else}
-            synthesize
-          {/if}
-        </button>
-      </div>
-    {/if}
-
     <!-- FROG ONE SELECTOR -->
     {#if $frogOne === null}
       <FrogSelector
@@ -181,7 +167,14 @@
         }}
       />
     {:else}
-      <FrogPod frog={$frogOne} interactive={false} />
+      <FrogPod
+        small
+        index={1}
+        frog={$frogOne}
+        on:clear={e => {
+          frogOne.set(null)
+        }}
+      />
     {/if}
 
     <!-- FROG TWO SELECTOR -->
@@ -194,11 +187,35 @@
         }}
       />
     {:else}
-      <FrogPod frog={$frogTwo} interactive={false} />
+      <FrogPod
+        small
+        index={2}
+        frog={$frogTwo}
+        on:clear={e => {
+          frogTwo.set(null)
+        }}
+      />
     {/if}
+
+    <!-- SYNTHESIZE BUTTON -->
+    <div class="header">
+      <button
+        class="big-button glow-button"
+        class:disabled={!$frogOne || !$frogTwo || synthesizing}
+        on:click={synthesize}
+      >
+        {#if synthesizing}
+          <Dots />
+        {:else}
+          synthesize
+        {/if}
+      </button>
+    </div>
   {:else}
-    no frogs found. aquire specimens
-    <a href={FROGCRYPTO_URL} target="_blank">here</a>.
+    <div class="header">
+      no frogs found. aquire specimens
+      <a href={FROGCRYPTO_URL} target="_blank">here</a>.
+    </div>
   {/if}
 </div>
 

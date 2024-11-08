@@ -2,7 +2,6 @@
   import type { FrogPodType } from "$lib/types"
   import FrogListOverlay from "$lib/components/lab/FrogListOverlay.svelte"
   import { createEventDispatcher } from "svelte"
-  import { fade } from "svelte/transition"
   const dispatch = createEventDispatcher()
 
   export let userFrogs: FrogPodType[] = []
