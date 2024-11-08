@@ -81,3 +81,50 @@ export function formatTimestamp(timestamp: number): string {
       hour12: true
   });
 }
+
+export function seedToRGB(seed: string) {
+	if (seed.length !== 4) {
+		throw new Error('Seed must be exactly 4 characters');
+	}
+
+	const hash = (str, offset = 0) => {
+		const prime1 = 2147483647;
+		const prime2 = 16777619;
+		let hash = prime1;
+
+		for (let i = 0; i < str.length; i++) {
+			const char = str.charCodeAt(i);
+			hash = (hash ^ (char << offset)) * prime2;
+			hash = hash ^ (hash >> 13);
+		}
+		return Math.abs(hash);
+	};
+
+	const hR = hash(seed, 0);
+	const hG = hash(seed, 8);
+	const hB = hash(seed, 16);
+
+	const primes = [7927, 6971, 5939];
+
+	const r = (hR * primes[0]) % 256;
+	const g = (hG * primes[1]) % 256;
+	const b = (hB * primes[2]) % 256;
+
+	return [r, g, b];
+}
+
+export function seedToModifier(seed: string) {
+	const prime1 = 2147483647;
+	const prime2 = 16777619;
+
+	let hash = prime1;
+	for (let i = 0; i < seed.length; i++) {
+		const char = seed.charCodeAt(i);
+		hash = (hash ^ char) * prime2;
+	}
+	hash = hash ^ (hash >>> 16);
+
+	const normalized = (hash % 1000000) / 1000000;
+	return normalized;
+}
+

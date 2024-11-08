@@ -1,7 +1,8 @@
 uniform vec2 resolution;
 uniform float time;
 uniform sampler2D buffer;
-uniform vec2 warp;
+uniform vec2 beauty;
+uniform float complexity;
 
 #define PI2 6.28318530718
 #define M1 1597334677U
@@ -45,8 +46,8 @@ void main() {
     vec2 uv2 = (uv - 0.5);
     uv2 *= 0.999 * (1.0 + (length(uv2/2.0) /300.0));
     uv2 *= 1.0 - (0.03 * fft) * (0.5 + 0.25 * smoothstep(length(vec2(aspect,1.0)) / 2.0, 0.0, length(uvR)));
-    uv2.x += (0.0001 + 0.002 * fft) * sin(wave + time + uv2.y*warp.x);
-    uv2.y += (0.0001 + 0.002 * fft) * cos(wave + time + uv2.x*warp.y);
+    uv2.x += (0.0001 + 0.002 * fft) * sin(wave + time + uv2.y*beauty.x);
+    uv2.y += (0.0001 + 0.002 * fft) * cos(wave + time + uv2.x*beauty.y);
     uv2 = uv2 + 0.5;
   
     vec3 prev = texture(buffer, uv2).rgb;
