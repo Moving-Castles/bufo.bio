@@ -8,6 +8,8 @@ export const SYNTHESIS_SERVER_URL = "https://synthesis.mc-infra.com"
 export const FROG_COLLECTION_ID = "FrogCrypto (alpha)"
 export const SUBSTANCE_COLLECTION_ID = "shulgin.engineering substance"
 
+export const REVEAL_DELAY = 50
+
 export const bufoZapp: Zapp = {
     name: "shulgin.engineering",
     permissions: {

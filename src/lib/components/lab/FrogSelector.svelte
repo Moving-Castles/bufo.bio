@@ -18,7 +18,7 @@
         dispatch("select", e.detail)
         open = false
       }}
-      on:close={e => {
+      on:close={_ => {
         open = false
       }}
     />

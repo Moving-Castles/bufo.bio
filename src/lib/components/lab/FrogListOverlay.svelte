@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { FrogPodType } from "$lib/types"
-  import FrogPod from "$lib/components/pods/FrogPod.svelte"
   import { createEventDispatcher } from "svelte"
   const dispatch = createEventDispatcher()
+
+  import FrogPod from "$lib/components/pods/FrogPod.svelte"
 
   export let userFrogs: FrogPodType[] = []
 
@@ -17,9 +18,10 @@
     <div class="header">
       Frogs available: {userFrogs.length}
     </div>
-    {#each userFrogs as frog}
+    {#each userFrogs as frog, index}
       <FrogPod
         {frog}
+        {index}
         on:select={e => {
           dispatch("select", e.detail)
         }}

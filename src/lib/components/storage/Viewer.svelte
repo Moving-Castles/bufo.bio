@@ -8,14 +8,14 @@
   export let seed: string
   export let mode: "full" | "preview" = "full"
 
-  let substanceName = createName(seed)
+  let substanceName = createName(seed) ?? ""
 
   function abort() {
-    goto($originPath ?? "/")
+    goto($originPath ?? "/", { noScroll: true })
   }
 </script>
 
-<div class="name">{substanceName ?? ""}</div>
+<div class="name">{substanceName}</div>
 <button class="abort" on:click={abort}>←</button>
 
 <div

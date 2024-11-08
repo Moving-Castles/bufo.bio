@@ -27,6 +27,8 @@
   let message = ""
   let displayedMessage = ""
 
+  const line = "-".repeat(40)
+
   // Function to generate a random message of 200 characters
   function generateRandomMessage(length: number) {
     let result = ""
@@ -42,8 +44,12 @@
       await new Promise(resolve => setTimeout(resolve, 5))
     }
     await new Promise(resolve => setTimeout(resolve, 500))
+    displayedMessage += `<br/>${line}`
+    await new Promise(resolve => setTimeout(resolve, 500))
     displayedMessage += "<br/>SYNTHESIS COMPLETED SUCESSFULLY"
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 500))
+    displayedMessage += `<br/>${line}`
+    await new Promise(resolve => setTimeout(resolve, 500))
     displayedMessage += `<br/><strong>${name} CREATED</strong>`
     await new Promise(resolve => setTimeout(resolve, 1500))
     dispatch("done", { finished: true })

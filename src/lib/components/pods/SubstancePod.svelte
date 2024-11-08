@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { fade } from "svelte/transition"
   import { goto } from "$app/navigation"
   import type { SubstancePodType } from "$lib/types"
   import SubstanceDetails from "$lib/components/pods/SubstanceDetails.svelte"
   import { seedToRGB } from "$lib/modules/utils"
+  import { REVEAL_DELAY } from "$lib/constants"
 
   export let substance: SubstancePodType
+  export let index = 0
 
   const seed = substance.entries.seed.value
 
@@ -26,7 +29,7 @@
   <SubstanceDetails {substance} on:close={toggleDetails} />
 {/if}
 
-<div class="pod">
+<div class="pod" in:fade={{ duration: 200, delay: REVEAL_DELAY * index }}>
   <div class="markers">
     <div class="marker" style={personality} />
     <div class="marker" style={rarity} />

@@ -33,7 +33,7 @@
     {/if}
   </div>
 
-  {#each substances.reverse() as substance}
-    <SubstancePod {substance} />
+  {#each substances.reverse() as substance, index}
+    <SubstancePod {substance} {index} />
   {/each}
 </div>

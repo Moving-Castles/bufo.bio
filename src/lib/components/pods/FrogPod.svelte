@@ -1,11 +1,15 @@
 <script lang="ts">
+  import { fade } from "svelte/transition"
+  import { REVEAL_DELAY } from "$lib/constants"
   import type { FrogPodType } from "$lib/types"
-  import { createEventDispatcher } from "svelte"
+  import { createEventDispatcher, onMount } from "svelte"
   const dispatch = createEventDispatcher()
 
   export let frog: FrogPodType
   export let small: boolean = false
   export let index: number = 0
+
+  let loaded = false
 
   function handleClick() {
     if (small) {
@@ -14,56 +18,69 @@
       dispatch("select", frog)
     }
   }
+
+  onMount(async () => {
+    await new Promise(resolve => setTimeout(resolve, REVEAL_DELAY * index))
+    loaded = true
+  })
 </script>
 
-<div role="presentation" class="pod" class:small on:click={handleClick}>
-  <!-- NAME -->
-  <div class="name">
-    <span class="frog-index">#{index}: </span>{frog.entries.name.value}
+{#if loaded}
+  <div
+    role="presentation"
+    class="pod"
+    class:small
+    in:fade={{ duration: 200 }}
+    on:click={handleClick}
+  >
+    <!-- NAME -->
+    <div class="name">
+      <span class="frog-index">#{index}: </span>{frog.entries.name.value}
+    </div>
+    <!-- IMAGE -->
+    <div class="image-container">
+      <img src={frog.entries.imageUrl.value} alt={frog.entries.name.value} />
+    </div>
+    <!-- DETAILS -->
+    <div class="details">
+      <!-- BEAUTY -->
+      <div class="row">
+        <div class="label">beauty:</div>
+        <div class="value">{frog.entries.beauty.value}</div>
+      </div>
+      <!-- BIOME -->
+      <div class="row">
+        <div class="label">biome:</div>
+        <div class="value">{frog.entries.biome.value}</div>
+      </div>
+      <!-- INTELLIGENCE -->
+      <div class="row">
+        <div class="label">intelligence:</div>
+        <div class="value">{frog.entries.intelligence.value}</div>
+      </div>
+      <!-- JUMP -->
+      <div class="row">
+        <div class="label">jump:</div>
+        <div class="value">{frog.entries.jump.value}</div>
+      </div>
+      <!-- RARITY -->
+      <div class="row">
+        <div class="label">rarity:</div>
+        <div class="value">{frog.entries.rarity.value}</div>
+      </div>
+      <!-- SPEED -->
+      <div class="row">
+        <div class="label">speed:</div>
+        <div class="value">{frog.entries.speed.value}</div>
+      </div>
+      <!-- TEMPERAMENT -->
+      <div class="row">
+        <div class="label">temperament:</div>
+        <div class="value">{frog.entries.temperament.value}</div>
+      </div>
+    </div>
   </div>
-  <!-- IMAGE -->
-  <div class="image-container">
-    <img src={frog.entries.imageUrl.value} alt={frog.entries.name.value} />
-  </div>
-  <!-- DETAILS -->
-  <div class="details">
-    <!-- BEAUTY -->
-    <div class="row">
-      <div class="label">beauty:</div>
-      <div class="value">{frog.entries.beauty.value}</div>
-    </div>
-    <!-- BIOME -->
-    <div class="row">
-      <div class="label">biome:</div>
-      <div class="value">{frog.entries.biome.value}</div>
-    </div>
-    <!-- INTELLIGENCE -->
-    <div class="row">
-      <div class="label">intelligence:</div>
-      <div class="value">{frog.entries.intelligence.value}</div>
-    </div>
-    <!-- JUMP -->
-    <div class="row">
-      <div class="label">jump:</div>
-      <div class="value">{frog.entries.jump.value}</div>
-    </div>
-    <!-- RARITY -->
-    <div class="row">
-      <div class="label">rarity:</div>
-      <div class="value">{frog.entries.rarity.value}</div>
-    </div>
-    <!-- SPEED -->
-    <div class="row">
-      <div class="label">speed:</div>
-      <div class="value">{frog.entries.speed.value}</div>
-    </div>
-    <!-- TEMPERAMENT -->
-    <div class="row">
-      <div class="label">temperament:</div>
-      <div class="value">{frog.entries.temperament.value}</div>
-    </div>
-  </div>
-</div>
+{/if}
 
 <style lang="scss">
   .pod {
@@ -82,6 +99,10 @@
 
     &:hover {
       background: lightgrey;
+    }
+
+    &:active {
+      background: var(--foreground);
     }
 
     .image-container {
