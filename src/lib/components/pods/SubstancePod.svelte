@@ -20,8 +20,6 @@
   <SubstanceDetails {substance} on:close={toggleDetails} />
 {/if}
 
-<div class="details">DETAILS</div>
-
 <div class="pod">
   <div class="name">{substance?.entries?.name?.value ?? ""}</div>
   <div class="actions">

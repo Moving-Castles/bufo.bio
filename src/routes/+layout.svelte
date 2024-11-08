@@ -51,9 +51,9 @@
         font-family: var(--font-stack-alt);
         font-size: 42px;
         height: 80px;
+        line-height: 80px;
         font-weight: bold;
         width: 100%;
-        line-height: 80px;
         background: radial-gradient(circle, #ff0000, #00ff2a, #e600ff);
         animation: backgroundCycle 24s infinite;
         filter: hue-rotate(0deg);
