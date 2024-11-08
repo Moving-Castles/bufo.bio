@@ -87,7 +87,7 @@ export function seedToRGB(seed: string) {
 		throw new Error('Seed must be exactly 4 characters');
 	}
 
-	const hash = (str, offset = 0) => {
+	const hash = (str: string, offset = 0) => {
 		const prime1 = 2147483647;
 		const prime2 = 16777619;
 		let hash = prime1;

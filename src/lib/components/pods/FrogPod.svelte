@@ -70,7 +70,7 @@
     padding-top: 15px;
     padding-bottom: 10px;
     background: darkgrey;
-    margin-bottom: 1em;
+    margin-bottom: 20px;
     color: var(--background);
     user-select: none;
     width: 100%;

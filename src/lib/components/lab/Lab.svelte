@@ -9,16 +9,20 @@
     SUBSTANCE_COLLECTION_ID,
     SYNTHESIS_SERVER_URL,
   } from "$lib/constants"
-  import type { FrogPodType, SubstancePodType } from "$lib/types"
+  import type { FrogPodType } from "$lib/types"
   import { FROG_QUERY } from "$lib/modules/zupass"
   import { convertBigIntsToNumbers } from "$lib/modules/utils"
+  import {
+    frogOne,
+    frogTwo,
+    selectedFrogSignatures,
+    newSubstance,
+  } from "$lib/stores"
 
   import NavBar from "$lib/components/navigation/NavBar.svelte"
   import FrogSelector from "$lib/components/lab/FrogSelector.svelte"
   import FrogPod from "$lib/components/pods/FrogPod.svelte"
   import SubstancePod from "$lib/components/pods/SubstancePod.svelte"
-
-  import { frogOne, frogTwo, newSubstance } from "$lib/stores"
   import Dots from "../Dots.svelte"
   import ResultSequence from "./ResultSequence.svelte"
 
@@ -27,6 +31,10 @@
   let synthesizing = false
   let result = false
   let compPod: any
+
+  $: filteredFrogs = userFrogs.filter(frog => {
+    return !$selectedFrogSignatures.includes(frog.signature)
+  })
 
   async function synthesize() {
     if (!$zupassClient || !$frogOne || !$frogTwo) {
@@ -161,7 +169,7 @@
     {#if $frogOne === null}
       <FrogSelector
         index={1}
-        {userFrogs}
+        userFrogs={filteredFrogs}
         on:select={e => {
           frogOne.set(e.detail)
         }}
@@ -181,7 +189,7 @@
     {#if $frogTwo === null}
       <FrogSelector
         index={2}
-        {userFrogs}
+        userFrogs={filteredFrogs}
         on:select={e => {
           frogTwo.set(e.detail)
         }}
