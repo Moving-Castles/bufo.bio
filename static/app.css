@@ -75,7 +75,12 @@ html {
   }
 
   button:hover {
-    background: lightgray;
+    opacity: 0.8;
+  }
+
+  button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   .big-button {
@@ -98,4 +103,4 @@ html {
 
   a:hover {
     text-decoration: none;
-  } 
+  }

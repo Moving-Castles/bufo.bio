@@ -18,13 +18,20 @@
   import SubstancePod from "$lib/components/pods/SubstancePod.svelte"
 
   import { frogOne, frogTwo, newSubstance } from "$lib/stores"
+  import Dots from "../Dots.svelte"
 
   let userFrogs: FrogPodType[] = []
+  let saving = false
+  let synthesizing = false
 
   async function synthesize() {
     if (!$zupassClient || !$frogOne || !$frogTwo) {
       return
     }
+
+    synthesizing = true
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
     const userSemaphoreCommitment = String(
       await $zupassClient.identity.getSemaphoreV4Commitment()
@@ -76,12 +83,16 @@
     newSubstance.set(compPod)
     frogOne.set(null)
     frogTwo.set(null)
+    synthesizing = false
   }
 
   async function save() {
     if (!$zupassClient || !$newSubstance) {
       return
     }
+
+    saving = true
+
     await $zupassClient.pod
       .collection(SUBSTANCE_COLLECTION_ID)
       .insert($newSubstance)
@@ -114,12 +125,36 @@
       <div class="header">new substance</div>
       <SubstancePod substance={$newSubstance} />
       <div class="actions">
-        <button on:click={save}>save</button>
-        <button on:click={discard}>discard</button>
+        <button class="save" on:click={save}>
+          {#if saving}
+            <Dots />
+          {:else}
+            save
+          {/if}
+        </button>
+        <button class="discard" on:click={discard} class:disabled={saving}>
+          discard
+        </button>
       </div>
     </div>
   {:else if userFrogs.length > 0}
     <div class="header">select two frogs to synthesize substance</div>
+
+    {#if $frogOne && $frogTwo}
+      <div class="header">
+        <button
+          class="big-button glow-button"
+          class:disabled={synthesizing}
+          on:click={synthesize}
+        >
+          {#if synthesizing}
+            <Dots />
+          {:else}
+            synthesize
+          {/if}
+        </button>
+      </div>
+    {/if}
 
     <!-- FROG ONE SELECTOR -->
     {#if $frogOne === null}
@@ -145,12 +180,6 @@
       />
     {:else}
       <FrogPod frog={$frogTwo} interactive={false} />
-    {/if}
-
-    {#if $frogOne && $frogTwo}
-      <button class="big-button" on:click={synthesize}>
-        synthesize substance
-      </button>
     {/if}
   {:else}
     no frogs found. aquire specimens
@@ -178,5 +207,36 @@
         }
       }
     }
+  }
+
+  .glow-button {
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 1); /* yellow glow */
+    animation: backgroundCycle 12s infinite alternate;
+    // font-family: var(--font-stack-alt);
+    // font-size: 42px;
+    font-weight: bold;
+  }
+
+  @keyframes backgroundCycle {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    50% {
+      filter: hue-rotate(360deg);
+    }
+    100% {
+      filter: hue-rotate(0deg);
+    }
+  }
+
+  .discard {
+    background: rgb(255, 0, 0);
+    font-weight: bold;
+    color: var(--foreground);
+  }
+
+  .save {
+    background: rgb(0, 255, 0);
+    font-weight: bold;
   }
 </style>

@@ -22,10 +22,10 @@
       text-decoration: none;
       font-weight: bold;
       color: var(--background);
-      background: lightgray;
+      background: gray;
 
       &.active {
-        background: grey;
+        background: lightgray;
       }
     }
   }

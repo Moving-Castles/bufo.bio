@@ -48,7 +48,7 @@
       cursor: pointer;
 
       &:hover {
-        background: lightblue;
+        background: lightgrey;
       }
     }
   }

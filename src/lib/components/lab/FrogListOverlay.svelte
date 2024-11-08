@@ -5,10 +5,15 @@
   const dispatch = createEventDispatcher()
 
   export let userFrogs: FrogPodType[] = []
+
+  function close() {
+    dispatch("close")
+  }
 </script>
 
 <div class="frog-list-overlay">
   <div class="inner">
+    <button class="close" on:click={close}>close</button>
     <div class="header">
       Frogs available: {userFrogs.length}
     </div>
@@ -43,5 +48,11 @@
       max-width: calc(100% - 40px);
       margin-bottom: 20px;
     }
+  }
+
+  .close {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
   }
 </style>

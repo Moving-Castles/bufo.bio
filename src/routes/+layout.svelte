@@ -1,7 +1,12 @@
 <script lang="ts">
+  import { page } from "$app/stores"
   import { zupassClient } from "$lib/stores"
   import Avatar from "$lib/components/Avatar.svelte"
   import Disclaimer from "$lib/components/Disclaimer.svelte"
+
+  $: isViewer = $page.route.id === "/storage/[slug]" ? true : false
+
+  $: console.log(isViewer)
 </script>
 
 <!-- Container for zupass connector -->
@@ -12,9 +17,11 @@
     {#if $zupassClient}
       <Avatar zupassClient={$zupassClient} />
     {/if}
-    <div class="logo">
-      <div class="text-content">shulgin.engineering</div>
-    </div>
+    {#if !isViewer}
+      <div class="logo">
+        <div class="text-content">shulgin.engineering</div>
+      </div>
+    {/if}
     <div class="slot-container">
       <slot />
     </div>
@@ -47,8 +54,6 @@
         font-weight: bold;
         width: 100%;
         line-height: 80px;
-        // animation: backgroundCycle 6s infinite;
-        // background: rgb(146, 255, 37);
         background: radial-gradient(circle, #ff0000, #00ff2a, #e600ff);
         animation: backgroundCycle 24s infinite;
         filter: hue-rotate(0deg);
@@ -58,25 +63,6 @@
           top: 2px;
         }
       }
-
-      .slot-container {
-        // min-height: 100vh;
-      }
-    }
-  }
-
-  @keyframes backgroundCycle {
-    0% {
-      background: radial-gradient(circle, #ff0000, #00ff0d, #0004ff);
-    }
-    33% {
-      background: radial-gradient(circle, #00ff0d, #0004ff, #ff0000);
-    }
-    66% {
-      background: radial-gradient(circle, #0004ff, #ff0000, #00ff0d);
-    }
-    100% {
-      background: radial-gradient(circle, #ff0000, #00ff0d, #0004ff);
     }
   }
 
