@@ -32,6 +32,7 @@
     --font-size-base: 14px;
     --font-size-small: 10px;
     --z-overlay: 1000;
+    --z-top-ui: 1001;
 }
 
 html {

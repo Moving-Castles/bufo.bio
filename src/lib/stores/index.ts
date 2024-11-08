@@ -9,3 +9,4 @@ export const zupassClient: Writable<ParcnetAPI | null> = writable(null);
 export const frogOne: Writable<FrogPodType | null> = writable(null);
 export const frogTwo: Writable<FrogPodType | null> = writable(null);
 export const newSubstance: Writable<SubstancePodType | null> = writable(null);
+export const originPath = writable<string | null>(null);
