@@ -15,37 +15,56 @@
 		PlaneGeometry,
 		ShaderMaterial,
 		Uniform,
-		Texture
+		Texture,
+		Clock
 	} from 'three'
 	import vertexShader from '$lib/glsl/a.vert'
 	import bufferShader from '$lib/glsl/a.frag'
 	import screenShader from '$lib/glsl/b.frag'
+	import { seedToRGB, seedToModifier } from '$lib/modules/utils'
 
 	interface BufferUniforms {
 		resolution: Vector2
 		time: number,
 		buffer: Texture,
-		warp: Vector2,
+		beauty: Vector2,
+		complexity: number,
 	}
 
 	interface ScreenUniforms {
 		resolution: Vector2,
 		time: number,
 		buffer: Texture,
-		color1: Vector3,
-		color2: Vector3,
+		personality: Vector3,
+		rarity: Vector3,
 	}
 	
 	export let mode: 'full' | 'preview'
 
 	export let seed: string
 
-	const color1: Vector3 = new Vector3(0.95, 0.95, 0.43)
-	const color2: Vector3 = new Vector3(1.0, 0.25, 0.2)
-	const warp: Vector2 = new Vector2(50.0, 25.0)
+	const personality: Vector3 = new Vector3(
+		...seedToRGB(seed.slice(0, 4)).map(x => x / 255)
+	)
+
+	const rarity: Vector3 = new Vector3(
+		...seedToRGB(seed.slice(4, 8)).map(x => x / 255)
+	)
+
+	const beauty: Vector2 = new Vector2(
+		seedToModifier(seed.slice(8, 12)) * 100,
+		seedToModifier(seed.slice(8, 16)) * 100
+	)
+
+	console.log(beauty)
+
+	const complexity: number = 1.0
 
 	const { renderer, size, camera } = useThrelte()
 
+	const clock: Clock = new Clock()
+
+	let time: number
 	let resolution: Vector2
 	let bufferUniforms: BufferUniforms
 	let screenUniforms: ScreenUniforms
@@ -56,30 +75,30 @@
 
 		if (screenUniforms && bufferUniforms) {
 			screenUniforms['resolution']['value'] = resolution
-			bufferUniforms['resolution']['value'] = resolution
+			bufferUniforms['resolution']['value'] = new Vector2(resolution.x * 0.5, resolution.y * 0.5)
 		}
 	})
 
 	bufferUniforms = {
-		resolution: new Uniform(resolution),
+		resolution: new Uniform(new Vector2(resolution.x * 0.5, resolution.y * 0.5)),
 		time: new Uniform(0),
 		buffer: new Uniform(new Texture()),
-		warp: new Uniform(warp),
-		buffer: new Uniform(new Texture()),
+		beauty: new Uniform(beauty),
+		complexity: new Uniform(complexity),
 	}
 
 	screenUniforms = {
 		resolution: new Uniform(resolution),
 		time: new Uniform(0),
 		buffer: new Uniform(new Texture()),
-		color1: new Uniform(color1),
-		color2: new Uniform(color2),
+		personality: new Uniform(personality),
+		rarity: new Uniform(rarity),
 	}
 
 	const bufferA = useFBO(
-		resolution.x,
-		resolution.y,
-		{
+		resolution.x * 0.5,
+		resolution.y * 0.5,
+ 		{
 			format: RGBAFormat,
 			type: FloatType,
 			minFilter: NearestFilter,
@@ -106,11 +125,7 @@
 	screenUniforms.buffer.value = readBuffer.texture
 	bufferUniforms.buffer.value = readBuffer.texture
 
-	let time = 0
-
 	useTask((delta) => {
-		time += delta
-
 		renderer.setRenderTarget(writeBuffer)
 		renderer.render(bufferScene, $camera)
 	
@@ -120,6 +135,8 @@
 
 		screenUniforms.buffer.value = readBuffer.texture
 		bufferUniforms.buffer.value = readBuffer.texture
+
+		time = clock.getElapsedTime()
 
 		screenUniforms.time.value = time
 		bufferUniforms.time.value = time
