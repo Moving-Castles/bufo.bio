@@ -71,34 +71,4 @@
       filter: hue-rotate(0deg);
     }
   }
-
-  // @keyframes pulseGradient {
-  //   0% {
-  //     background-size: 100%;
-  //   }
-  //   50% {
-  //     background-size: 120%;
-  //   }
-  //   100% {
-  //     background-size: 100%;
-  //   }
-  // }
-
-  // @keyframes backgroundCycle {
-  //   0% {
-  //     background-color: #ff7b00; /* Red */
-  //   }
-  //   25% {
-  //     background-color: #59fd59; /* Green */
-  //   }
-  //   50% {
-  //     background-color: #d23df3; /* Blue */
-  //   }
-  //   75% {
-  //     background-color: #00ffee; /* Yellow */
-  //   }
-  //   100% {
-  //     background-color: #ff7b00; /* Red (loop back to the start) */
-  //   }
-  // }
 </style>

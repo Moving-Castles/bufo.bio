@@ -2,11 +2,11 @@
   import { goto } from "$app/navigation"
   import type { SubstancePodType } from "$lib/types"
   import SubstanceDetails from "$lib/components/pods/SubstanceDetails.svelte"
-	import { seedToRGB } from '$lib/modules/utils'
+  import { seedToRGB } from "$lib/modules/utils"
 
   export let substance: SubstancePodType
 
-	const seed = substance.entries.seed.value
+  const seed = substance.entries.seed.value
 
   let detailsOpen = false
 
@@ -18,17 +18,19 @@
     detailsOpen = !detailsOpen
   }
 
-	const personality = seedToRGB(seed.slice(0, 4)).join(',')
-	const rarity = seedToRGB(seed.slice(8, 12)).join(',')
-	const style = `color: rgb(${personality});` +
-	`background: rgb(${rarity})`
+  const personality = `background: rgb(${seedToRGB(seed.slice(0, 4)).join(",")})`
+  const rarity = `background: rgb(${seedToRGB(seed.slice(8, 12)).join(",")})`
 </script>
 
 {#if detailsOpen}
   <SubstanceDetails {substance} on:close={toggleDetails} />
 {/if}
 
-<div class="pod" {style}>
+<div class="pod">
+  <div class="markers">
+    <div class="marker" style={personality} />
+    <div class="marker" style={rarity} />
+  </div>
   <div class="name">{substance?.entries?.name?.value ?? ""}</div>
   <div class="actions">
     <button on:click={view}>view</button>
@@ -47,6 +49,7 @@
     outline: 0;
     width: 100%;
     font-size: var(--font-size-base);
+    position: relative;
 
     .name {
       padding-top: 10px;
@@ -71,6 +74,17 @@
           margin-left: 5px;
         }
       }
+    }
+  }
+
+  .markers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    .marker {
+      width: 20px;
+      height: 20px;
     }
   }
 </style>
