@@ -28,7 +28,7 @@
     </div>
     <!-- SYNTHESIS TIMESTAMP -->
     <div class="row">
-      <div class="label">synthesis timestamp</div>
+      <div class="label">timestamp</div>
       <div class="value">
         {formatTimestamp(
           Number(substance?.entries?.timestampSigned?.value) ?? 0
