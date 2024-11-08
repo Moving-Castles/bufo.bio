@@ -21,7 +21,7 @@
   {#if busy}
     <Dots />
   {:else}
-    connect to Zupass
+    enter the lab
   {/if}
 </button>
 

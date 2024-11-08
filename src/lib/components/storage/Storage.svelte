@@ -25,7 +25,13 @@
 <NavBar page="storage" />
 
 <div>
-  <div class="header">substances in storage: {substances.length ?? 0}</div>
+  <div class="header">
+    {#if substances.length === 0}
+      <p>no substances in storage. go to the lab.</p>
+    {:else}
+      substances in storage: {substances.length ?? 0}
+    {/if}
+  </div>
 
   {#each substances.reverse() as substance}
     <SubstancePod {substance} />

@@ -26,7 +26,7 @@
 :root {
     --background: #000000;
     --foreground: #ffffff;
-    --accent: #ff0000;
+    --accent: #00fff7;
     --font-stack: "Berkeley Mono", "courier new", monospace;
     --font-stack-alt: "deadly", "courier new", monospace;
     --font-size-base: 14px;
@@ -90,3 +90,11 @@ html {
   .header {
     margin-bottom: 20px;
   }
+
+  a {
+    color: var(--accent);
+  }
+
+  a:hover {
+    text-decoration: none;
+  } 

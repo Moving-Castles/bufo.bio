@@ -4,6 +4,7 @@
   import { goto } from "$app/navigation"
   import {
     FROG_COLLECTION_ID,
+    FROGCRYPTO_URL,
     SUBSTANCE_COLLECTION_ID,
     SYNTHESIS_SERVER_URL,
   } from "$lib/constants"
@@ -148,7 +149,8 @@
       </button>
     {/if}
   {:else}
-    no frogs found
+    no frogs found. aquire specimens
+    <a href={FROGCRYPTO_URL} target="_blank">here</a>.
   {/if}
 </div>
 

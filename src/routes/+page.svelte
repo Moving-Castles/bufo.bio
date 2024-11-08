@@ -3,16 +3,16 @@
 </script>
 
 <div class="introduction">
-  <p>connect to access the lab</p>
+  <p>derive novel substances from frogs</p>
 </div>
 
 <Connect />
 
 <style lang="scss">
-  .introduction {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-  }
+  // .introduction {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   height: 40px;
+  // }
 </style>
