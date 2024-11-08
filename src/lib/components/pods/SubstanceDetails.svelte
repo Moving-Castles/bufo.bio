@@ -6,8 +6,6 @@
 
   export let substance: SubstancePodType
 
-  console.log("substance", substance)
-
   function close() {
     dispatch("close")
   }

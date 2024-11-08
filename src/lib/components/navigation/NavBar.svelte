@@ -20,12 +20,12 @@
       line-height: 40px;
       text-align: center;
       text-decoration: none;
-      font-weight: bold;
       color: var(--background);
       background: gray;
 
       &.active {
         background: lightgray;
+        font-weight: bold;
       }
     }
   }

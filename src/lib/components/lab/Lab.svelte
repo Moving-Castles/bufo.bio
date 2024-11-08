@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte"
+  import { fade } from "svelte/transition"
   import { zupassClient } from "$lib/stores"
   import { goto } from "$app/navigation"
   import {
@@ -19,10 +20,13 @@
 
   import { frogOne, frogTwo, newSubstance } from "$lib/stores"
   import Dots from "../Dots.svelte"
+  import ResultSequence from "./ResultSequence.svelte"
 
   let userFrogs: FrogPodType[] = []
   let saving = false
   let synthesizing = false
+  let result = false
+  let compPod: any
 
   async function synthesize() {
     if (!$zupassClient || !$frogOne || !$frogTwo) {
@@ -56,9 +60,8 @@
     }
 
     const responseData = await response.json()
-    console.log(responseData)
 
-    const compPod = {
+    compPod = {
       entries: {
         pod_type: { type: "string", value: "shulgin.engineering.substance" },
         name: { type: "string", value: responseData.entries.name },
@@ -80,10 +83,9 @@
       signerPublicKey: responseData.signerPublicKey,
     }
 
-    newSubstance.set(compPod)
     frogOne.set(null)
     frogTwo.set(null)
-    synthesizing = false
+    result = true
   }
 
   async function save() {
@@ -105,6 +107,12 @@
     newSubstance.set(null)
   }
 
+  function resultSequenceDone() {
+    result = false
+    synthesizing = false
+    newSubstance.set(compPod)
+  }
+
   onMount(async () => {
     if (!$zupassClient) {
       goto("/")
@@ -120,11 +128,18 @@
 <NavBar page="lab" />
 
 <div class="list">
-  {#if $newSubstance}
+  {#if result}
+    <ResultSequence
+      name={compPod?.entries?.name?.value ?? ""}
+      on:done={resultSequenceDone}
+    />
+  {:else if $newSubstance}
     <div class="new-substance">
-      <div class="header">new substance</div>
-      <SubstancePod substance={$newSubstance} />
-      <div class="actions">
+      <div class="header" in:fade={{ duration: 200 }}>** new substance **</div>
+      <div in:fade={{ duration: 200, delay: 500 }}>
+        <SubstancePod substance={$newSubstance} />
+      </div>
+      <div class="actions" in:fade={{ duration: 200, delay: 1000 }}>
         <button class="save" on:click={save}>
           {#if saving}
             <Dots />
@@ -210,8 +225,8 @@
   }
 
   .glow-button {
-    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 1); /* yellow glow */
-    animation: backgroundCycle 12s infinite alternate;
+    // box-shadow: 0 0 20px 5px rgba(255, 0, 0, 1); /* yellow glow */
+    // animation: backgroundCycle 12s infinite alternate;
     // font-family: var(--font-stack-alt);
     // font-size: 42px;
     font-weight: bold;
@@ -229,14 +244,20 @@
     }
   }
 
+  // .glow-button:hover {
+  //   background: radial-gradient(circle, #ff0000, #00ff2a, #e600ff);
+  //   animation: backgroundCycle 4s infinite;
+  //   filter: hue-rotate(0deg);
+  // }
+
   .discard {
-    background: rgb(255, 0, 0);
+    // border: 2px solid rgb(255, 0, 0);
     font-weight: bold;
-    color: var(--foreground);
+    // color: var(--foreground);
   }
 
   .save {
-    background: rgb(0, 255, 0);
+    // border: 2px solid rgb(0, 255, 0);
     font-weight: bold;
   }
 </style>

@@ -8,8 +8,6 @@
 
   onMount(async () => {
     publicKey = await zupassClient.identity.getPublicKey()
-    console.log(await zupassClient.identity.getSemaphoreV3Commitment())
-    console.log(await zupassClient.identity.getSemaphoreV4Commitment())
   })
 </script>
 

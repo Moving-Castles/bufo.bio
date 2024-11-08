@@ -2,11 +2,8 @@
   import { page } from "$app/stores"
   import { zupassClient } from "$lib/stores"
   import Avatar from "$lib/components/Avatar.svelte"
-  import Disclaimer from "$lib/components/Disclaimer.svelte"
 
   $: isViewer = $page.route.id === "/storage/[slug]" ? true : false
-
-  $: console.log(isViewer)
 </script>
 
 <!-- Container for zupass connector -->
@@ -25,9 +22,6 @@
     <div class="slot-container">
       <slot />
     </div>
-    <!-- {#if $zupassClient}
-      <Disclaimer />
-    {/if} -->
   </div>
 </main>
 
