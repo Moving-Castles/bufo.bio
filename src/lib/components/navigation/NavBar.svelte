@@ -1,10 +1,28 @@
 <script lang="ts">
+  import type { SubstancePodType } from "$lib/types"
+  import { SUBSTANCE_COLLECTION_ID } from "$lib/constants"
+  import { SUBSTANCE_QUERY } from "$lib/modules/zupass"
+  import { zupassClient } from "$lib/stores"
+  import { onMount } from "svelte"
+
   export let page: string
+
+  let userSubstances: SubstancePodType[] = []
+
+  onMount(async () => {
+    if (!zupassClient) return
+
+    userSubstances = await $zupassClient.pod
+      .collection(SUBSTANCE_COLLECTION_ID)
+      .query(SUBSTANCE_QUERY)
+  })
 </script>
 
 <div class="navbar">
   <a href="/lab" class:active={page === "lab"}>lab</a>
-  <a href="/storage" class:active={page === "storage"}>storage</a>
+  <a href="/storage" class:active={page === "storage"}>
+    storage ({userSubstances.length ?? 0})
+  </a>
 </div>
 
 <style lang="scss">

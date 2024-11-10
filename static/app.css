@@ -24,12 +24,12 @@
 }
 
 :root {
+    --foreground: #ffffff;
     --background: #000000;
     --color-light: rgb(211, 211, 211);
     --color-mid: rgb(128, 128, 128);
     --color-dark: rgb(169, 169, 169);
-    --foreground: #ffffff;
-    --accent: #00fff7;
+    --accent: var(--foreground);
     --failure: #ff6464;
     --success: #00ff7f;
     --font-stack: "Berkeley Mono", "courier new", monospace;
