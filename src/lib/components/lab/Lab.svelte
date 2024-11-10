@@ -215,7 +215,7 @@
         {#if synthesizing}
           <Dots />
         {:else}
-          synthesize
+          ═╬═ synthesize ═╬═
         {/if}
       </button>
     </div>
