@@ -97,8 +97,10 @@
 
     cursor: pointer;
 
-    &:hover {
-      background: var(--color-light);
+    @media (min-width: 800px) {
+      &:hover {
+        background: var(--color-light);
+      }
     }
 
     &:active {

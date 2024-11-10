@@ -79,9 +79,14 @@ html {
     font-size: var(--font-size-base);
   }
 
-  button:hover,
   button:active {
     background: var(--foreground);
+  }
+
+  @media (min-width: 800px) {
+    button:hover {
+      background: var(--foreground);
+    }
   }
 
   button.disabled {

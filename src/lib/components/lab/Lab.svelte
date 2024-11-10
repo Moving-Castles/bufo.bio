@@ -278,16 +278,28 @@
   .discard {
     font-weight: bold;
 
-    &:hover {
+    &:active {
       background: var(--failure);
+    }
+
+    @media (min-width: 800px) {
+      &:hover {
+        background: var(--failure);
+      }
     }
   }
 
   .save {
     font-weight: bold;
 
-    &:hover {
+    &:active {
       background: var(--success);
+    }
+
+    @media (min-width: 800px) {
+      &:hover {
+        background: var(--success);
+      }
     }
   }
 </style>
