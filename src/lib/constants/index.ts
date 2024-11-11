@@ -1,11 +1,10 @@
 import type { Zapp } from "@parcnet-js/app-connector"
 
-export const FROGCRYPTO_URL = "https://frogcrypto.vercel.app/"
-export const ZUPASS_CLIENT_URL = "https://staging.zupass.org"
-// export const SYNTHESIS_SERVER_URL = "http://localhost:4001"
+export const FROGCRYPTO_URL = "https://zupass.org/#/?folder=frogcrypto"
+export const ZUPASS_CLIENT_URL = "https://zupass.org"
 export const SYNTHESIS_SERVER_URL = "https://synthesis.mc-infra.com"
 
-export const FROG_COLLECTION_ID = "FrogCrypto (alpha)"
+export const FROG_COLLECTION_ID = "FrogCrypto"
 export const SUBSTANCE_COLLECTION_ID = "shulgin.engineering substance"
 
 export const REVEAL_DELAY = 50
