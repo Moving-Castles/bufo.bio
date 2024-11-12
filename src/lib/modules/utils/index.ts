@@ -95,16 +95,19 @@ export function seedToRGB(seed: string, light: boolean = true) {
 }
 
 export function seedToModifier(seed: string) {
-	const prime1 = 2147483647;
-	const prime2 = 16777619;
-
-	let hash = prime1;
-	for (let i = 0; i < seed.length; i++) {
-		const char = seed.charCodeAt(i);
-		hash = (hash ^ char) * prime2;
-	}
-	hash = hash ^ (hash >>> 16);
-
-	const normalized = (Math.abs(hash % 1000000)) / 1000000;
-	return normalized;
+    const prime1 = 2147483647;
+    const prime2 = 16777619;
+    let hash = prime1;
+    
+    for (let i = 0; i < seed.length; i++) {
+        const char = seed.charCodeAt(i);
+        hash = (hash ^ char) * prime2;
+    }
+    
+    hash = hash ^ (hash >>> 16);
+    const normalized = (Math.abs(hash % 1000000)) / 1000000;
+    
+    // Ensure the output is above 0.09 by scaling the range
+    // Map 0-1 to 0.09-1
+    return 0.1 + (normalized * (1 - 0.1));
 }

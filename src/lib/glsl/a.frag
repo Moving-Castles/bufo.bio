@@ -11,22 +11,22 @@ uniform vec2 beauty;
 void main() {
     vec2 uv = gl_FragCoord.xy/resolution.xy;
     uv = uv * 2.0 - 1.0;
-    uv *= 1.9;
+    uv *= 1.0 - complexity * 0.2;
     uv.x *= resolution.x/resolution.y;
     
     vec2 c = vec2(0.0);
     if (true) {
-        c = mix(0., 280., complexity)/vec2(600., 1000.);
+        c = mix(50., 150., complexity)/vec2(600., 1000.);
         c = c * 2.0 - 1.0;
 
         float t = time * 0.1;
         c += vec2(
             sin(t * 0.3) * beauty.x * 0.1,
             cos(t * 0.4) * beauty.y * 0.1
-        );
+						);
     } else {
-        float f = sin(min(3.14, 5.0) - 1.57) * 0.5 + 0.5;
-        float t = mix(0.0, 5.0, min(1.0, f));
+        float f = sin(min(3.14, 3.0) - 1.57) * 0.5 + 0.5;
+        float t = mix(0.0, 3.0, min(1.0, f));
         c = vec2(-cos(t), sin(t));
         c *= mix(0.6, 0.87, cos(t * 2.0) * 0.5 + 0.5);
     }
@@ -42,12 +42,13 @@ void main() {
     }
     m = i / ITERATIONS;
     
-    float phase = time * 5.0;
+    float phase = time * 0.5;
     vec3 t_color = vec3(
-        0.5 + 0.5 * cos(m * ITERATIONS * mix(0.0, 0.5, complexity) + phase),
-        0.5 + 0.5 * cos(m * ITERATIONS * mix(0.0, 0.5, complexity) + phase + 2.094),
-        0.5 + 0.5 * cos(m * ITERATIONS * mix(0.0, 0.5, complexity) + phase - 2.094)
+        0.5 + 0.5 * cos(m * ITERATIONS * mix(0., 0.5, complexity) + phase),
+        0.5 + 0.5 * cos(m * ITERATIONS * mix(0., 0.5, complexity) + phase + 2.094),
+        0.5 + 0.5 * cos(m * ITERATIONS * mix(0., 0.5, complexity) + phase - 2.094)
     );
     vec3 col = mix(personality, rarity, t_color);
     gl_FragColor = vec4(col, 1.0);
 }
+
