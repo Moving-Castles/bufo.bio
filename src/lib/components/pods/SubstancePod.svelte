@@ -22,7 +22,7 @@
   }
 
   const personality = `background: rgb(${seedToRGB(seed.slice(0, 8)).join(",")})`
-  const rarity = `background: rgb(${seedToRGB(seed.slice(8, 16)).join(",")})`
+  const rarity = `background: rgb(${seedToRGB(seed.slice(8, 16), false).join(",")})`
 </script>
 
 {#if detailsOpen}

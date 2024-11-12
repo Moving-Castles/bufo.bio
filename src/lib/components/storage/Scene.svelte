@@ -29,6 +29,8 @@
 		buffer: Texture,
 		beauty: Vector2,
 		complexity: number,
+		personality: Vector3,
+		rarity: Vector3,
 	}
 
 	interface ScreenUniforms {
@@ -48,15 +50,17 @@
 	)
 
 	const rarity: Vector3 = new Vector3(
-		...seedToRGB(seed.slice(8, 16)).map(x => x / 255)
+		...seedToRGB(seed.slice(8, 16), false).map(x => x / 255)
 	)
 
 	const beauty: Vector2 = new Vector2(
-		seedToModifier(seed.slice(0, 8)) * 100,
-		seedToModifier(seed.slice(8, 16)) * 100
+		seedToModifier(seed.slice(0, 8)),
+		seedToModifier(seed.slice(8, 16))
 	)
 
-	const complexity: number = seed.slice(0, 16)
+	console.log(beauty)
+
+	const complexity: number = seedToModifier(seed.slice(0, 16))
 
 	const { renderer, size, camera } = useThrelte()
 
@@ -73,17 +77,21 @@
 
 		if (screenUniforms && bufferUniforms) {
 			screenUniforms['resolution']['value'] = resolution
-			bufferUniforms['resolution']['value'] = new Vector2(resolution.x * 0.5, resolution.y * 0.5)
+			bufferUniforms['resolution']['value'] = new Vector2(resolution.x * 1.0, resolution.y * 1.0)
 		}
 	})
 
 	bufferUniforms = {
-		resolution: new Uniform(new Vector2(resolution.x * 0.5, resolution.y * 0.5)),
+		resolution: new Uniform(new Vector2(resolution.x * 1.0, resolution.y * 1.0)),
 		time: new Uniform(0),
 		buffer: new Uniform(new Texture()),
-		beauty: new Uniform(beauty),
 		complexity: new Uniform(complexity),
+		personality: new Uniform(personality),
+		beauty: new Uniform(beauty),
+		rarity: new Uniform(rarity),
 	}
+
+	console.log(complexity)
 
 	screenUniforms = {
 		resolution: new Uniform(resolution),
@@ -94,8 +102,8 @@
 	}
 
 	const bufferA = useFBO(
-		resolution.x * 0.5,
-		resolution.y * 0.5,
+		resolution.x * 1.0,
+		resolution.y * 1.0,
 		{
 			format: RGBAFormat,
 			type: FloatType,
@@ -167,6 +175,4 @@
 		uniforms={screenUniforms}
 	/>
 </T.Mesh>
-
-
 

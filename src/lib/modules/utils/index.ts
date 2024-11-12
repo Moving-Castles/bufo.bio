@@ -84,11 +84,14 @@ export function formatTimestamp(timestamp: number): string {
   });
 }
 
-export function seedToRGB(seed: string) {
-	return randomColor({	
+export function seedToRGB(seed: string, light: boolean = true) {
+	const rgb = randomColor({	
 		seed,
 		format: 'rgbArray',
+		luminosity: light ? 'bright' : 'dark',
 	})
+
+	return rgb
 }
 
 export function seedToModifier(seed: string) {
@@ -102,6 +105,6 @@ export function seedToModifier(seed: string) {
 	}
 	hash = hash ^ (hash >>> 16);
 
-	const normalized = (hash % 1000000) / 1000000;
+	const normalized = (Math.abs(hash % 1000000)) / 1000000;
 	return normalized;
 }
