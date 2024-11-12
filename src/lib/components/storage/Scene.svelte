@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-  import { T, useTask, useThrelte } from '@threlte/core'
+	import { T, useTask, useThrelte } from '@threlte/core'
 	import { useFBO } from '@threlte/extras'
 	import {
 		Vector2,
@@ -38,27 +38,25 @@
 		personality: Vector3,
 		rarity: Vector3,
 	}
-	
+
 	export let mode: 'full' | 'preview'
 
 	export let seed: string
 
 	const personality: Vector3 = new Vector3(
-		...seedToRGB(seed.slice(0, 4)).map(x => x / 255)
+		...seedToRGB(seed.slice(0, 8)).map(x => x / 255)
 	)
 
 	const rarity: Vector3 = new Vector3(
-		...seedToRGB(seed.slice(4, 8)).map(x => x / 255)
+		...seedToRGB(seed.slice(8, 16)).map(x => x / 255)
 	)
 
 	const beauty: Vector2 = new Vector2(
-		seedToModifier(seed.slice(8, 12)) * 100,
+		seedToModifier(seed.slice(0, 8)) * 100,
 		seedToModifier(seed.slice(8, 16)) * 100
 	)
 
-	console.log(beauty)
-
-	const complexity: number = 1.0
+	const complexity: number = seed.slice(0, 16)
 
 	const { renderer, size, camera } = useThrelte()
 
@@ -98,7 +96,7 @@
 	const bufferA = useFBO(
 		resolution.x * 0.5,
 		resolution.y * 0.5,
- 		{
+		{
 			format: RGBAFormat,
 			type: FloatType,
 			minFilter: NearestFilter,
@@ -169,4 +167,6 @@
 		uniforms={screenUniforms}
 	/>
 </T.Mesh>
+
+
 
