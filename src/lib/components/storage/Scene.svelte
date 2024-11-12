@@ -134,7 +134,7 @@
 	useTask((delta) => {
 		renderer.setRenderTarget(writeBuffer)
 		renderer.render(bufferScene, $camera)
-	
+
 		const temp = readBuffer
 		readBuffer = writeBuffer
 		writeBuffer = temp
@@ -157,21 +157,21 @@
 		bufferA?.dispose()
 		bufferB?.dispose()
 	}
- 
+
 	onMount(() => cleanup)
 </script>
 
 <T.OrthographicCamera
-  makeDefault
+	makeDefault
 	args={[-1, 1, 1, -1, 0, 1]}
 	positionc={[0, 0, 0.1]}
 	/>
 
 <T.Mesh>
-  <T.PlaneGeometry args={[2, 2, 1, 1]} />
-  <T.ShaderMaterial
+	<T.PlaneGeometry args={[2, 2, 1, 1]} />
+	<T.ShaderMaterial
 		fragmentShader={screenShader}
-    vertexShader={vertexShader}
+		vertexShader={vertexShader}
 		uniforms={screenUniforms}
 	/>
 </T.Mesh>
