@@ -103,9 +103,10 @@
 
     saving = true
 
-    await $zupassClient.pod
-      .collection(SUBSTANCE_COLLECTION_ID)
-      .insert($newSubstance)
+    $zupassClient.pod.collection(SUBSTANCE_COLLECTION_ID).insert($newSubstance)
+
+    // HACK
+    await new Promise(resolve => setTimeout(resolve, 4000))
 
     newSubstance.set(null)
     goto("/storage")
