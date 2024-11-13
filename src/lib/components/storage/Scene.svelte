@@ -27,7 +27,9 @@
 		resolution: Vector2
 		time: number,
 		buffer: Texture,
-		beauty: Vector2,
+		beauty: Vector3,
+		rarity: Vector3,
+		personality: float,
 		complexity: number,
 	}
 
@@ -35,15 +37,18 @@
 		resolution: Vector2,
 		time: number,
 		buffer: Texture,
-		personality: Vector3,
-		rarity: Vector3,
 	}
 
 	export let mode: 'full' | 'preview'
 
 	export let seed: string
 
-	const personality: Vector3 = new Vector3(
+	const personality: Vector2 = new Vector2(
+		seedToModifier(seed.slice(0, 8)),
+		seedToModifier(seed.slice(8, 16))
+	)
+
+	const beauty: Vector3 = new Vector3(
 		...seedToRGB(seed.slice(0, 8)).map(x => x / 255)
 	)
 
@@ -51,12 +56,7 @@
 		...seedToRGB(seed.slice(8, 16)).map(x => x / 255)
 	)
 
-	const beauty: Vector2 = new Vector2(
-		seedToModifier(seed.slice(0, 8)) * 100,
-		seedToModifier(seed.slice(8, 16)) * 100
-	)
-
-	const complexity: number = seed.slice(0, 16)
+	const complexity: number = seedToModifier(seed.slice(0, 16));
 
 	const { renderer, size, camera } = useThrelte()
 
@@ -73,16 +73,18 @@
 
 		if (screenUniforms && bufferUniforms) {
 			screenUniforms['resolution']['value'] = resolution
-			bufferUniforms['resolution']['value'] = new Vector2(resolution.x * 0.5, resolution.y * 0.5)
+			bufferUniforms['resolution']['value'] = new Vector2(resolution.x * 0.7, resolution.y * 0.7)
 		}
 	})
 
 	bufferUniforms = {
-		resolution: new Uniform(new Vector2(resolution.x * 0.5, resolution.y * 0.5)),
+		resolution: new Uniform(new Vector2(resolution.x * 0.7, resolution.y * 0.7)),
 		time: new Uniform(0),
 		buffer: new Uniform(new Texture()),
 		beauty: new Uniform(beauty),
 		complexity: new Uniform(complexity),
+		personality: new Uniform(personality),
+		rarity: new Uniform(rarity),
 	}
 
 	screenUniforms = {
@@ -90,12 +92,14 @@
 		time: new Uniform(0),
 		buffer: new Uniform(new Texture()),
 		personality: new Uniform(personality),
+		complexity: new Uniform(complexity),
 		rarity: new Uniform(rarity),
+		beauty: new Uniform(beauty),
 	}
 
 	const bufferA = useFBO(
-		resolution.x * 0.5,
-		resolution.y * 0.5,
+		resolution.x * 0.7,
+		resolution.y * 0.7,
 		{
 			format: RGBAFormat,
 			type: FloatType,

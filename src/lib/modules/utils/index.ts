@@ -88,20 +88,22 @@ export function seedToRGB(seed: string) {
 	return randomColor({	
 		seed,
 		format: 'rgbArray',
+	  luminosity: 'dark'
 	})
 }
 
-export function seedToModifier(seed: string) {
-	const prime1 = 2147483647;
-	const prime2 = 16777619;
-
-	let hash = prime1;
-	for (let i = 0; i < seed.length; i++) {
-		const char = seed.charCodeAt(i);
-		hash = (hash ^ char) * prime2;
-	}
-	hash = hash ^ (hash >>> 16);
-
-	const normalized = (hash % 1000000) / 1000000;
-	return normalized;
+export function seedToModifier(seed: string): number {
+    const prime1 = 2147483647;
+    const prime2 = 16777619;
+    let hash = prime1;
+    
+    for (let i = 0; i < seed.length; i++) {
+        const char = seed.charCodeAt(i);
+        hash = (hash ^ char) * prime2;
+    }
+    
+    hash = hash ^ (hash >>> 16);
+    const normalized = (hash % 1000000) / 1000000;
+    
+    return Number((Math.abs(normalized)).toFixed(1));
 }
