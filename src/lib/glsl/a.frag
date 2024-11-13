@@ -53,10 +53,10 @@ void main() {
 	float wave = smoothDiffusion(time) * 0.1;
 
 	vec2 uv2 = (uv - 0.5);
-	uv2 *= 0.995 * (1.0 + (length(uv2/2.0) / 300.0)) + complexity * 0.01;
+	uv2 *= 0.996 * (1.0 + (length(uv2/2.0) / 300.0)) + complexity * 0.01;
 	uv2 *= 1.0 - (0.03 * diffusionStrength) * (0.5 + 0.25 * smoothstep(length(vec2(aspect, 1.0)) / 2.0, 0.0, length(uvR)));
-	uv2.x += (.0001 + (complexity * 0.001 * 2.) + .002 * diffusionStrength) * sin(wave + time + uv2.y*personality.y);
-	uv2.y += (.0001 + (complexity * 0.001 * 2.) + .002 * diffusionStrength) * cos(wave + time + uv2.x*personality.x*2.0);
+	uv2.x += (.0001 + (complexity * 0.001) + .002 * diffusionStrength) * sin(wave + time + uv2.y*personality.y);
+	uv2.y += (.0001 + (complexity * 0.001) + .002 * diffusionStrength) * cos(wave + time + uv2.x*personality.x*2.0);
 	uv2 = uv2 + 0.5;
 
 	vec3 prev = texture2D(buffer, uv2).rgb;
@@ -74,3 +74,4 @@ void main() {
 
 	gl_FragColor = vec4(col, 1.0);
 }
+
