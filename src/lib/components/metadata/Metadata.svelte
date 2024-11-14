@@ -15,7 +15,6 @@
 <svelte:head>
   <title>{title}</title>
   <meta property="og:title" content={title} />
-  <meta name="author" content="YMoving Castles" />
   <meta property="twitter:title" content={title} />
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="description" content={description} />
