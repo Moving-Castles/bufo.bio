@@ -27,4 +27,10 @@
   <meta property="twitter:image" content={image} />
   <meta name="twitter:site" content="@movingcastles_" />
   <meta name="twitter:creator" content="@movingcastles_" />
+  <meta name="application-name" content={title} />
+  <meta name="apple-mobile-web-app-title" content={title} />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon" href={image} />
 </svelte:head>
